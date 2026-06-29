@@ -1,6 +1,7 @@
 package com.circulation.random_complement.common;
 
 import com.circulation.random_complement.common.handler.CraftingUnitHandler;
+import com.circulation.random_complement.common.integration.ae2.AEIntegrations;
 import com.circulation.random_complement.common.interfaces.Packet;
 import com.circulation.random_complement.common.network.ContainerRollBACK;
 import com.circulation.random_complement.common.network.InterfaceTracing;
@@ -9,7 +10,6 @@ import com.circulation.random_complement.common.network.RCActionButton;
 import com.circulation.random_complement.common.network.RCConfigButton;
 import com.circulation.random_complement.common.network.SyncConfig;
 import com.circulation.random_complement.common.network.WirelessPickBlock;
-import com.circulation.random_complement.common.util.Functions;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -28,9 +28,9 @@ public class CommonProxy {
 
     public void preInit() {
         MinecraftForge.EVENT_BUS.register(this);
-        if (Functions.modLoaded("appliedenergistics2")) {
+        registerMessage(SyncConfig.class, Side.CLIENT);
+        if (AEIntegrations.INSTANCE.isEnabled()) {
             registerMessage(ContainerRollBACK.class, Side.CLIENT);
-            registerMessage(SyncConfig.class, Side.CLIENT);
             registerMessage(InterfaceTracing.class, Side.CLIENT);
 
             registerMessage(ContainerRollBACK.class, Side.SERVER);
@@ -38,7 +38,7 @@ public class CommonProxy {
             registerMessage(RCConfigButton.class, Side.SERVER);
             registerMessage(RCActionButton.class, Side.SERVER);
             registerMessage(InterfaceTracing.class, Side.SERVER);
-            if (Functions.modLoaded("jei")) {
+            if (Loader.isModLoaded("jei")) {
                 registerMessage(KeyBindingHandler.class, Side.SERVER);
             }
         }
@@ -48,7 +48,9 @@ public class CommonProxy {
     }
 
     public void postInit() {
-        if (Loader.isModLoaded("appliedenergistics2")) CraftingUnitHandler.register();
+        if (AEIntegrations.INSTANCE.isEnabled()) {
+            CraftingUnitHandler.register();
+        }
     }
 
     public boolean isMouseHasItem() {

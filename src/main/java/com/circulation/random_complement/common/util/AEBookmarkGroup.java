@@ -2,11 +2,11 @@ package com.circulation.random_complement.common.util;
 
 import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IItemList;
+import com.circulation.random_complement.common.integration.ae2.AEIntegrations;
 import com.glodblock.github.common.item.fake.FakeItemRegister;
 import mezz.jei.bookmarks.BookmarkGroup;
 import mezz.jei.bookmarks.BookmarkItem;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,7 +20,7 @@ public class AEBookmarkGroup extends BookmarkGroup {
             var item = iaeItemStack.createItemStack();
             Object mark = null;
 
-            if (Loader.isModLoaded("ae2fc")) {
+            if (AEIntegrations.INSTANCE.isAe2fcEnabled()) {
                 mark = getFluid(item);
             }
 

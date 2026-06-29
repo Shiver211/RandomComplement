@@ -5,6 +5,7 @@ import com.blakebr0.extendedcrafting.compat.jei.tablecrafting.AdvancedTableCateg
 import com.blakebr0.extendedcrafting.compat.jei.tablecrafting.BasicTableCategory;
 import com.blakebr0.extendedcrafting.compat.jei.tablecrafting.EliteTableCategory;
 import com.blakebr0.extendedcrafting.compat.jei.tablecrafting.UltimateTableCategory;
+import com.circulation.random_complement.common.integration.ae2.AEIntegrations;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.IModRegistry;
 import mezz.jei.api.JEIPlugin;
@@ -57,7 +58,7 @@ public class JEIRecipeCatalyst implements IModPlugin {
         }
         if (Loader.isModLoaded("packageddraconic"))
             addRecipeCatalyst("packageddraconic", "fusion_crafter", "DraconicEvolution.Fusion");
-        if (Loader.isModLoaded("ae2exttable")) addExtended();
+        if (AEIntegrations.INSTANCE.isAe2ExtTableEnabled()) addExtended();
     }
 
     @Optional.Method(modid = "ae2exttable")

@@ -21,6 +21,7 @@ import appeng.me.helpers.PlayerSource;
 import appeng.util.Platform;
 import appeng.util.item.AEItemStack;
 import baubles.api.BaublesApi;
+import com.circulation.random_complement.common.integration.ae2.AEIntegrations;
 import com.circulation.random_complement.common.interfaces.Packet;
 import com.circulation.random_complement.common.interfaces.RCAEBaseContainer;
 import com.circulation.random_complement.common.interfaces.RCCraftingGridCache;
@@ -203,7 +204,7 @@ public class KeyBindingHandler implements Packet<KeyBindingHandler> {
 
                 var host = c.getTarget();
                 if (host instanceof IActionHost i) {
-                    if (Loader.isModLoaded("ae2fc")) ae2fcCraft(i, player, c);
+                    if (AEIntegrations.INSTANCE.isAe2fcEnabled()) ae2fcCraft(i, player, c);
                     else
                         Platform.openGUI(player, c.getOpenContext().getTile(), c.getOpenContext().getSide(), GuiBridge.GUI_CRAFTING_AMOUNT);
 

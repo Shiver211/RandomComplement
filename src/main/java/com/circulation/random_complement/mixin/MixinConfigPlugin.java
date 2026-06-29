@@ -1,6 +1,7 @@
 package com.circulation.random_complement.mixin;
 
 import com.circulation.random_complement.RCConfig;
+import com.circulation.random_complement.common.integration.ae2.AEIntegrations;
 import net.minecraftforge.fml.common.Loader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -61,6 +62,9 @@ public abstract class MixinConfigPlugin implements IMixinConfigPlugin {
 
         @Override
         public boolean shouldApplyMixin(String s, String mixinClassName) {
+            if (!AEIntegrations.INSTANCE.isEnabled()) {
+                return false;
+            }
             mixinClassName = erasePacketPrefix(mixinClassName);
             if (mixinClassName.startsWith("miss_craft")) {
                 return RCConfig.AE2.enableMissCraft;
@@ -83,6 +87,9 @@ public abstract class MixinConfigPlugin implements IMixinConfigPlugin {
 
         @Override
         public boolean shouldApplyMixin(String s, String mixinClassName) {
+            if (!AEIntegrations.INSTANCE.isAe2fcEnabled()) {
+                return false;
+            }
             mixinClassName = erasePacketPrefix(mixinClassName);
             if (mixinClassName.startsWith("new_patten_gui")) {
                 return RCConfig.AE2.newPattenGui;
@@ -99,6 +106,9 @@ public abstract class MixinConfigPlugin implements IMixinConfigPlugin {
 
         @Override
         public boolean shouldApplyMixin(String s, String mixinClassName) {
+            if (!AEIntegrations.INSTANCE.isEnabled()) {
+                return false;
+            }
             mixinClassName = erasePacketPrefix(mixinClassName);
             if (mixinClassName.startsWith("branch_craft")) {
                 return RCConfig.AE2.enableBranchCraft;

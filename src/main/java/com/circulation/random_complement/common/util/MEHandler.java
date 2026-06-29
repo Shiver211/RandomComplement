@@ -15,6 +15,7 @@ import appeng.util.item.AEItemStack;
 import baubles.api.BaublesApi;
 import com.circulation.random_complement.RandomComplement;
 import com.circulation.random_complement.client.buttonsetting.PatternTermAutoFillPattern;
+import com.circulation.random_complement.common.integration.ae2.AEIntegrations;
 import com.circulation.random_complement.common.interfaces.PatternTermConfigs;
 import com.glodblock.github.common.item.ItemFluidPacket;
 import com.glodblock.github.common.item.ItemGasPacket;
@@ -53,7 +54,7 @@ import java.util.Set;
 
 public class MEHandler {
 
-    public static final boolean loadAE2FC = Loader.isModLoaded("ae2fc");
+    public static final boolean loadAE2FC = AEIntegrations.INSTANCE.isAe2fcEnabled();
     public static final boolean loadMEKEng = Loader.isModLoaded("mekeng");
     @Getter
     private static final Set<IAEItemStack> craftableCacheS = new ObjectOpenHashSet<>();

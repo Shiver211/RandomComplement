@@ -67,6 +67,11 @@ public class RCConfig {
     }
 
     public static class ae2 {
+        @Config.Comment({"Enable the whole AE ecosystem integration"})
+        @Config.Name("Enable")
+        @Config.RequiresMcRestart
+        public boolean Enable = true;
+
         @Config.Comment({"Disable the Build permission check for AE2's security station"})
         @Config.Name("SecurityCache")
         public boolean SecurityCache = true;

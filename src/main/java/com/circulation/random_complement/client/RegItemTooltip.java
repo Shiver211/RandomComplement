@@ -3,13 +3,13 @@ package com.circulation.random_complement.client;
 import appeng.client.gui.AEBaseGui;
 import appeng.container.slot.SlotFake;
 import com.circulation.random_complement.client.handler.ItemTooltipHandler;
+import com.circulation.random_complement.common.integration.ae2.AEIntegrations;
 import com.circulation.random_complement.mixin.util.FCClassUtil;
 import com.glodblock.github.client.GuiUltimateEncoder;
 import it.unimi.dsi.fastutil.objects.ObjectLists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.GameSettings;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -21,7 +21,7 @@ import java.util.function.Supplier;
 public class RegItemTooltip {
 
     public static void regAll() {
-        if (Loader.isModLoaded("ae2fc")) regAE2FCTooltips();
+        if (AEIntegrations.INSTANCE.isAe2fcEnabled()) regAE2FCTooltips();
     }
 
     @Optional.Method(modid = "ae2fc")

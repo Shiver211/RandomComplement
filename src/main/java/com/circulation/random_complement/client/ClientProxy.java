@@ -6,7 +6,7 @@ import com.circulation.random_complement.client.handler.ItemTooltipHandler;
 import com.circulation.random_complement.client.handler.RCInputHandler;
 import com.circulation.random_complement.client.handler.RCJEIInputHandler;
 import com.circulation.random_complement.common.CommonProxy;
-import com.circulation.random_complement.common.util.Functions;
+import com.circulation.random_complement.common.integration.ae2.AEIntegrations;
 import com.circulation.random_complement.mixin.jei.AccessorGhostIngredientDragManager;
 import com.circulation.random_complement.mixin.jei.AccessorInputHandler;
 import it.unimi.dsi.fastutil.objects.ReferenceArrayList;
@@ -83,7 +83,7 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void init() {
         super.init();
-        if (Functions.modLoaded("appliedenergistics2")) {
+        if (AEIntegrations.INSTANCE.isEnabled()) {
             KeyBindings.init();
         }
     }
@@ -94,12 +94,12 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(GuiMouseHelper.INSTANCE);
         MinecraftForge.EVENT_BUS.register(ItemTooltipHandler.INSTANCE);
         MinecraftForge.EVENT_BUS.register(HighlighterHandler.INSTANCE);
-        if (Loader.isModLoaded("appliedenergistics2")) {
+        if (AEIntegrations.INSTANCE.isEnabled()) {
             MinecraftForge.EVENT_BUS.register(RCInputHandler.INSTANCE);
         }
         if (Loader.isModLoaded("jei")) {
             ReferenceList<Class<?>> classes = new ReferenceArrayList<>();
-            if (Loader.isModLoaded("appliedenergistics2")) {
+            if (AEIntegrations.INSTANCE.isEnabled()) {
                 try {
                     classes.add(Class.forName("appeng.client.gui.AEBaseGui"));
                 } catch (ClassNotFoundException ignored) {
