@@ -13,7 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 @Mixin(ContainerCraftConfirm.class)
@@ -45,17 +44,30 @@ public abstract class MixinContainerCraftConfirm implements RCAEBaseContainer {
         }
     }
 
+    @WrapOperation(
+        method = "detectAndSendChanges",
+        at = @At(
+            value = "INVOKE",
+            target = "Ljava/util/concurrent/Future;get()Ljava/lang/Object;",
+            remap = false),
+        remap = false,
+        require = 1)
+    public Object completeCraftingJob(Future<ICraftingJob> instance, Operation<Object> original) {
+        Object result = original.call(instance);
+        if (!(result instanceof RCCraftingJob craftingJob)) {
+            String resultType = result == null ? "null" : result.getClass().getName();
+            throw new IllegalStateException("AE2 crafting Future result does not implement RCCraftingJob: " + resultType);
+        }
+
+        this.r$canIgnoredInput = craftingJob.canIgnoredInput();
+        if (craftingJob.isMiss()) {
+            this.autoStart = false;
+        }
+        return result;
+    }
+
     @Inject(method = "setJob", at = @At("HEAD"), remap = false)
     public void setJob(Future<ICraftingJob> job, CallbackInfo ci) {
-        if (job == null) return;
-        try {
-            if (job.get() instanceof RCCraftingJob j) {
-                this.r$canIgnoredInput = j.canIgnoredInput();
-                if (j.isMiss()) {
-                    this.autoStart = false;
-                }
-            }
-        } catch (InterruptedException | ExecutionException ignored) {
-        }
+        this.r$canIgnoredInput = false;
     }
 }
