@@ -84,11 +84,14 @@ public class KeyBindingHandler implements Packet<KeyBindingHandler> {
         EntityPlayerMP player = ctx.getServerHandler().player;
         var container = player.openContainer;
         var item = message.stack;
-        switch (message.key) {
-            case "RetrieveItem" -> retrieveItem(player, container, item, message.isAE);
-            case "StartCraft" ->
-                player.getServer().addScheduledTask(() -> startCraft(player, container, item, message.isAE));
-        }
+        player.getServer().addScheduledTask(() -> {
+            switch (message.key) {
+                case "RetrieveItem" ->
+                    retrieveItem(player, container, item, message.isAE);
+                case "StartCraft" ->
+                    startCraft(player, container, item, message.isAE);
+            }
+        });
         return null;
     }
 
