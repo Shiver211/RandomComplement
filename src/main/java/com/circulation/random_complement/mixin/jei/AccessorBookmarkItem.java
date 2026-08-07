@@ -1,0 +1,14 @@
+package com.circulation.random_complement.mixin.jei;
+
+import mezz.jei.bookmarks.BookmarkItem;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.gen.Accessor;
+
+@Mixin(value = BookmarkItem.class, remap = false)
+public interface AccessorBookmarkItem<I> {
+    @Accessor("ingredient")
+    I i_getIngredient();
+
+    @Accessor("amount")
+    void i_setAmount(long a);
+}

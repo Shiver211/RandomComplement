@@ -13,10 +13,10 @@ import com.circulation.random_complement.client.handler.RCJEIInputHandler;
 import com.circulation.random_complement.common.network.KeyBindingHandler;
 import com.circulation.random_complement.common.util.Functions;
 import com.circulation.random_complement.common.util.MEHandler;
+import com.circulation.random_complement.mixin.jei.AccessorBookmarkItem;
 import it.unimi.dsi.fastutil.objects.ObjectLists;
 import lombok.Getter;
 import lombok.val;
-import mezz.jei.bookmarks.BookmarkItem;
 import mezz.jei.bookmarks.BookmarkList;
 import mezz.jei.gui.GuiScreenHelper;
 import mezz.jei.gui.ghost.GhostIngredientDragManager;
@@ -119,8 +119,8 @@ public abstract class MixinInputHandler {
                     var ing = getFocusUnderMouseForClick(MouseHelper.getX(), MouseHelper.getY());
                     if (ing == null) return false;
                     final ItemStack item;
-                    if (ing.getValue() instanceof BookmarkItem<?> book) {
-                        item = MEHandler.packItem(book.ingredient);
+                    if (ing.getValue() instanceof AccessorBookmarkItem<?> book) {
+                        item = MEHandler.packItem(book.i_getIngredient());
                     } else {
                         item = MEHandler.packItem(ing.getValue());
                     }

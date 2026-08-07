@@ -7,13 +7,13 @@ import com.circulation.random_complement.client.handler.RCInputHandler;
 import com.circulation.random_complement.client.handler.RCJEIInputHandler;
 import com.circulation.random_complement.common.CommonProxy;
 import com.circulation.random_complement.common.integration.ae2.AEIntegrations;
+import com.circulation.random_complement.mixin.jei.AccessorBookmarkItem;
 import com.circulation.random_complement.mixin.jei.AccessorGhostIngredientDragManager;
 import com.circulation.random_complement.mixin.jei.AccessorInputHandler;
 import it.unimi.dsi.fastutil.objects.ReferenceArrayList;
 import it.unimi.dsi.fastutil.objects.ReferenceList;
 import lombok.val;
 import mezz.jei.Internal;
-import mezz.jei.bookmarks.BookmarkItem;
 import mezz.jei.gui.ghost.GhostIngredientDrag;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -63,7 +63,7 @@ public class ClientProxy extends CommonProxy {
             if (ii.getIngredient() instanceof ItemStack stack) {
                 return stack;
             }
-            if (ii.getIngredient() instanceof BookmarkItem<?> book && book.ingredient instanceof ItemStack stack) {
+            if (ii.getIngredient() instanceof AccessorBookmarkItem<?> book && book.i_getIngredient() instanceof ItemStack stack) {
                 return stack;
             }
         }

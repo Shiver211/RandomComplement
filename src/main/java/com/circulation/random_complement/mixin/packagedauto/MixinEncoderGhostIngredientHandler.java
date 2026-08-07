@@ -1,6 +1,6 @@
 package com.circulation.random_complement.mixin.packagedauto;
 
-import mezz.jei.bookmarks.BookmarkItem;
+import com.circulation.random_complement.mixin.jei.AccessorBookmarkItem;
 import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -19,8 +19,8 @@ public abstract class MixinEncoderGhostIngredientHandler {
 
     @Inject(method = "wrapStack", at = @At("HEAD"), cancellable = true)
     private static void wrapStackMixin(Object ingredient, CallbackInfoReturnable<ItemStack> cir) {
-        if (ingredient instanceof BookmarkItem<?> b) {
-            cir.setReturnValue(wrapStack(b.ingredient));
+        if (ingredient instanceof AccessorBookmarkItem<?> b) {
+            cir.setReturnValue(wrapStack(b.i_getIngredient()));
         }
     }
 }

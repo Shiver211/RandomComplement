@@ -3,6 +3,7 @@ package com.circulation.random_complement.common.util;
 import appeng.api.storage.data.IAEItemStack;
 import appeng.api.storage.data.IItemList;
 import com.circulation.random_complement.common.integration.ae2.AEIntegrations;
+import com.circulation.random_complement.mixin.jei.AccessorBookmarkItem;
 import com.glodblock.github.common.item.fake.FakeItemRegister;
 import mezz.jei.bookmarks.BookmarkGroup;
 import mezz.jei.bookmarks.BookmarkItem;
@@ -28,9 +29,9 @@ public class AEBookmarkGroup extends BookmarkGroup {
                 mark = item;
             }
 
-            var Bookmark = new BookmarkItem<>(mark);
-            Bookmark.amount = iaeItemStack.getStackSize();
-            this.addItemInternal(Bookmark);
+            AccessorBookmarkItem<?> Bookmark = (AccessorBookmarkItem<?>) new BookmarkItem<>(mark);
+            Bookmark.i_setAmount(iaeItemStack.getStackSize());
+            this.addItemInternal((BookmarkItem<?>) Bookmark);
         }
     }
 

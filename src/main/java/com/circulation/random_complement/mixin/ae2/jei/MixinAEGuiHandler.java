@@ -3,8 +3,8 @@ package com.circulation.random_complement.mixin.ae2.jei;
 import appeng.client.gui.AEBaseGui;
 import appeng.client.gui.AEGuiHandler;
 import com.circulation.random_complement.common.interfaces.RCGuiMEMonitorableJei;
+import com.circulation.random_complement.mixin.jei.AccessorBookmarkItem;
 import mezz.jei.api.gui.IGhostIngredientHandler;
-import mezz.jei.bookmarks.BookmarkItem;
 import net.minecraft.client.gui.GuiScreen;
 import org.lwjgl.input.Mouse;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,8 +24,8 @@ public abstract class MixinAEGuiHandler {
 
     @Inject(method = "getTargets(Lappeng/client/gui/AEBaseGui;Ljava/lang/Object;Z)Ljava/util/List;", at = @At("HEAD"), cancellable = true)
     public void getTargets(AEBaseGui gui, Object ingredient, boolean doStart, CallbackInfoReturnable<List<IGhostIngredientHandler.Target<?>>> cir) {
-        if (ingredient instanceof BookmarkItem<?> i) {
-            cir.setReturnValue(this.getTargets(gui, i.ingredient, doStart));
+        if (ingredient instanceof AccessorBookmarkItem<?> i) {
+            cir.setReturnValue(this.getTargets(gui, i.i_getIngredient(), doStart));
         }
     }
 
