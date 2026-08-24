@@ -83,10 +83,10 @@ public class WirelessPickBlock implements Packet<WirelessPickBlock> {
             else needItem.setCount(handItem.getItem().getItemStackLimit(handItem) - handItem.getCount());
         }
 
-        ctx.getServerHandler().server.addScheduledTask(() -> readPlayer(player, needItem, message));
+        Objects.requireNonNull(player.getServer()).addScheduledTask(() -> readPlayer(player, needItem, message));
 
         if (!needItem.isEmpty() && Loader.isModLoaded("baubles")) {
-            ctx.getServerHandler().server.addScheduledTask(() -> readBaubles(player, needItem, message.slot));
+            player.getServer().addScheduledTask(() -> readBaubles(player, needItem, message.slot));
         }
 
         return null;
